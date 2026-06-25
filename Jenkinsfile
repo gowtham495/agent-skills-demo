@@ -9,7 +9,7 @@ node('built-in') {
             docker run --rm ^
               -v "%WORKSPACE%:/scan" ^
               skillspector:latest ^
-              scan /scan/skill.md --no-llm -f markdown -o /scan/report.md
+              scan /scan/skill.md --no-llm -f markdown > report.md
         '''
     }
 
