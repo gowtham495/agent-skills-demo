@@ -4,12 +4,12 @@ node('built-in') {
         checkout scm
     }
 
-    stage('Scan Skill') {
+    stage('Scan All Skills') {
         bat '''
             docker run --rm ^
               -v "%WORKSPACE%:/scan" ^
               skillspector:latest ^
-              scan /scan/skill.md --no-llm -f markdown > report.md
+              scan /scan/skills -r --no-llm -f markdown > report.md
         '''
     }
 
