@@ -1,16 +1,19 @@
-node('skillspector') {
+node('built-in') {
 
     stage('Checkout') {
         checkout scm
     }
 
-    stage('Scan Skills') {
-        sh '''
-            skillspector scan . --output report.json
+    stage('Scan Skill') {
+        bat '''
+            docker run --rm ^
+              -v "%WORKSPACE%:/scan" ^
+              skillspector:latest ^
+              scan /scan/skill.md --no-llm -f markdown -o /scan/report.md
         '''
     }
 
-    stage('Show Report') {
-        sh 'cat report.json'
+    stage('Archive Report') {
+        archiveArtifacts artifacts: 'report.md', fingerprint: true
     }
 }
